@@ -66,7 +66,7 @@ for (const width of widths) {
    if(width===375||width===1280){
      await page.evaluate(()=>{document.querySelectorAll('img[loading="lazy"]').forEach(img=>img.setAttribute('loading','eager'));});
      await page.waitForTimeout(500);
-     const broken=await page.locator('img').evaluateAll(items=>items.filter(img=>img.complete&&img.naturalWidth===0).map(img=>img.getAttribute('src')));
+     const broken=await page.locator('img').evaluateAll(items=>items.filter(img=>img.hasAttribute('src')&&img.complete&&img.naturalWidth===0).map(img=>img.getAttribute('src')));
      assert(broken.length===0,where,'Broken images: '+broken.join(', '));
      await page.screenshot({path:'audit/home-'+width+'.png',fullPage:true,animations:'disabled'});
    }
