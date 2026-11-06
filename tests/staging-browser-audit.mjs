@@ -54,6 +54,7 @@ for (const width of widths) {
   }
   if(route==='index.html'){
    await page.locator('[data-slide-next]').click();
+   await page.waitForFunction(() => document.querySelector('[data-slide-to="1"]')?.getAttribute('aria-pressed')==='true',null,{timeout:8000}).catch(()=>{});
    assert(await page.locator('[data-slide-to="1"]').getAttribute('aria-pressed')==='true',where,'Carousel next did not advance');
    await page.locator('[data-gallery="0"]').click();
    assert(await page.locator('#cbGalleryDialog').evaluate(el=>el.open),where,'Gallery modal did not open');
