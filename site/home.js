@@ -16,13 +16,15 @@ function showSlide(index){
  if(!slides.length)return;
  const target=(index+slides.length)%slides.length;
  const token=++imageChangeToken;
- prepareSlide(target).then(()=>{
+ const apply=()=>{
   if(token!==imageChangeToken)return;
   slide=target;
   slides.forEach((node,i)=>{let active=i===slide;node.classList.toggle('is-active',active);node.setAttribute('aria-hidden',String(!active));});
   dots.forEach((dot,i)=>{let active=i===slide;dot.classList.toggle('active',active);dot.setAttribute('aria-pressed',String(active));});
   const num=document.getElementById('cbSlideNumber');if(num)num.textContent=String(slide+1).padStart(2,'0');
- });
+ };
+ if(slides[target].querySelector('img[data-src]'))prepareSlide(target).then(apply);
+ else apply();
 }
 function stop(){if(timer){clearInterval(timer);timer=null;}}
 function start(){stop();if(paused||reduce.matches||document.hidden||slides.length<2)return;timer=window.setInterval(()=>showSlide(slide+1),interval);}
@@ -41,7 +43,7 @@ pause?.addEventListener('click',()=>{paused=!paused;syncPause();refresh();});
 reduce.addEventListener?.('change',e=>{if(e.matches){paused=true;syncPause();stop();}else refresh();});
 document.addEventListener('visibilitychange',refresh);
 showSlide(0);syncPause();refresh();
-window.addEventListener('load',()=>window.setTimeout(()=>{if(!document.hidden)prepareSlide((slide+1)%slides.length);},2500),{once:true});
+window.addEventListener('load',()=>window.setTimeout(()=>{if(!document.hidden)prepareSlide((slide+1)%slides.length);},5000),{once:true});
 const headerLogo=document.querySelector('.cb-header-logo');const showTextLogo=()=>document.querySelector('.cb-header-brand')?.classList.add('image-missing');headerLogo?.addEventListener('error',showTextLogo);if(headerLogo?.complete&&headerLogo.naturalWidth===0)showTextLogo();
 if(!reduce.matches&&'IntersectionObserver' in window){document.body.classList.add('cb-motion-ready');const reveal=new IntersectionObserver((entries,observer)=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-in-view');observer.unobserve(entry.target);}}),{threshold:.08,rootMargin:'0px 0px 30px 0px'});document.querySelectorAll('.cb-reveal').forEach(el=>reveal.observe(el));}
 document.querySelectorAll('img').forEach(img=>{const fail=()=>{img.classList.add('is-photo-missing');img.closest('.cb-gallery-card,.cb-slide')?.classList.add('is-photo-missing');};img.addEventListener('error',fail);if(img.complete&&img.naturalWidth===0&&img.getAttribute('src'))fail();});
