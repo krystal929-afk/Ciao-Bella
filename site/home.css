@@ -291,3 +291,6 @@
 @media(prefers-reduced-motion:reduce){
   .home-upgrade .cb-holiday-book {transition:none;}
 }
+
+/* Production cutover preparation: avoid endless modal/photo navigation on tiny viewports */
+.home-upgrade .cb-mobile-actions a{min-width:0;overflow-wrap:anywhere;text-align:center}

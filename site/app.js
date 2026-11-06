@@ -15,7 +15,7 @@ const tabs=[...document.querySelectorAll('[data-tab]')];
 function chooseTab(tab,focus){
  if(!tab)return;
  tabs.forEach(t=>{const active=t===tab;t.classList.toggle('selected',active);t.setAttribute('aria-selected',String(active));t.tabIndex=active?0:-1;});
- document.querySelectorAll('.menu-panel').forEach(panel=>{panel.classList.toggle('is-active',panel.id===tab.dataset.tab);});
+ document.querySelectorAll('.menu-panel').forEach(panel=>{const active=panel.id===tab.dataset.tab;panel.classList.toggle('is-active',active);panel.hidden=!active;});
  if(focus)tab.focus();
 }
 tabs.forEach(function(tab){
