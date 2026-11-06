@@ -301,3 +301,11 @@
 .home-upgrade .cb-holiday-show{min-height:48px;border:1px solid var(--cb-green);background:var(--cb-green);color:white;padding:10px 19px;display:inline-flex;align-items:center;gap:14px;text-align:left;white-space:nowrap;font:700 11px var(--sans);letter-spacing:.05em;cursor:pointer}
 .home-upgrade .cb-holiday-show:hover{background:var(--cb-green-deep)}
 @media(max-width:680px){.home-upgrade .cb-holiday-quick{flex-direction:column;align-items:start;padding:22px}.home-upgrade .cb-holiday-quick p{font-size:15px}.home-upgrade .cb-holiday-show{white-space:normal}}
+
+/* Launch-critical LCP: avoid the 9-second hero image transform.
+   Autoplay crossfades remain, but the first contentful image paints immediately. */
+.home-upgrade .cb-slide img,
+.home-upgrade .cb-slide.is-active img{
+  transform:none;
+  transition:none;
+}
