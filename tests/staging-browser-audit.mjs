@@ -83,7 +83,7 @@ for (const width of widths) {
    const holidayImgOK=await page.locator('.cb-holiday-art').evaluate(img=>img.complete&&img.naturalWidth>0);
    assert(holidayImgOK,where,'Original Holiday Parties art missing');
    const holidayLink=await page.locator('.cb-holiday-book').getAttribute('href');
-   assert(holidayLink==='https://ciaobellatrattoria.com/-party?destination=private_parties&promotion=holiday_party&source=pop_up&spot_id=344525',where,'Holiday Parties booking link incorrect');
+   assert(holidayLink==='https://tmt.spotapps.co/private-parties?spot_id=344525',where,'Holiday Parties booking link incorrect');
    const holidaySize=await page.locator('#cbHolidayDialog').boundingBox();
    assert(holidaySize&&holidaySize.x>=0&&holidaySize.x+holidaySize.width<=width+2,where,'Holiday popup exceeds viewport');
    if(width===375||width===1280)await page.screenshot({path:'audit/holiday-'+width+'.png',animations:'disabled'});
