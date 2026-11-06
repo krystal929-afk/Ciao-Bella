@@ -21,6 +21,12 @@ jobs:
         run: |
           unzip -j -o -q Ciao_Bella_Approved_Staging_Images.zip -d site/assets
           test -f site/assets/3635.webp
+      - name: Add original Holiday Parties promotional artwork
+        run: |
+          curl --fail --location --silent --show-error --retry 3 --connect-timeout 12 --max-time 50 \
+            'https://static.spotapps.co/assets/admin/hybrid_approach/holiday_party/website_casual.jpg' \
+            --output site/assets/holiday-party-original.jpg
+          test -s site/assets/holiday-party-original.jpg
       - name: Start local staging server
         run: |
           python3 -m http.server 8765 --bind 127.0.0.1 --directory site > /tmp/ciaobella-local.log 2>&1 &

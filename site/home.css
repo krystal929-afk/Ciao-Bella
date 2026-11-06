@@ -224,3 +224,70 @@
  .home-upgrade .cb-hero-content{padding-bottom:140px}
  .home-upgrade .cb-hero h1{font-size:clamp(35px,10vw,46px)}
 }
+
+
+/* Official Holiday Parties popup (original artwork; staging only). */
+.home-upgrade .cb-holiday-dialog {
+  width:min(518px,calc(100vw - 24px));
+  max-width:calc(100vw - 24px);
+  max-height:calc(100dvh - 24px);
+  margin:auto;
+  padding:0;
+  border:0;
+  border-radius:0;
+  background:#fff;
+  color:#111;
+  box-shadow:0 20px 68px rgba(0,0,0,.34);
+  overflow:auto;
+  overscroll-behavior:contain;
+}
+.home-upgrade .cb-holiday-dialog::backdrop { background:rgba(0,0,0,.73); }
+.home-upgrade .cb-holiday-content { position:relative; padding:32px 30px 35px; text-align:center; }
+.home-upgrade .cb-holiday-content h2 {
+  color:#121212;
+  font:500 clamp(26px,4.5vw,33px)/1.2 var(--serif);
+  letter-spacing:.035em;
+  margin:8px 44px 21px;
+  text-transform:uppercase;
+}
+.home-upgrade .cb-holiday-close {
+  position:absolute; z-index:3; top:8px; right:10px;
+  width:44px; height:44px; padding:0;
+  display:grid; place-items:center;
+  border:0; background:transparent; color:#222;
+  font:400 31px/1 var(--sans); cursor:pointer;
+}
+.home-upgrade .cb-holiday-close:hover,.home-upgrade .cb-holiday-close:focus-visible{background:#f2f2f2}
+.home-upgrade .cb-holiday-art {width:100%; height:auto; display:block; object-fit:contain; background:#f7f6f4; aspect-ratio:1000 / 667;}
+.home-upgrade #cbHolidayCopy {
+  margin:24px auto 25px;
+  max-width:400px;
+  color:#222;
+  font:400 17px/1.6 var(--serif);
+}
+.home-upgrade .cb-holiday-book {
+  display:inline-flex; justify-content:center; align-items:center;
+  min-height:48px; min-width:190px; padding:12px 23px;
+  background:#0e0e0e; color:#fff;
+  border:2px solid #0e0e0e; border-radius:0;
+  font:700 13px/1.35 var(--sans);
+  text-decoration:none; cursor:pointer;
+  transition:background .18s ease,color .18s ease;
+}
+.home-upgrade .cb-holiday-book:hover {background:#343434; border-color:#343434;}
+@media(max-width:540px){
+  .home-upgrade .cb-holiday-dialog {width:calc(100vw - 20px); max-height:calc(100dvh - 20px);}
+  .home-upgrade .cb-holiday-content {padding:26px 18px 28px;}
+  .home-upgrade .cb-holiday-content h2 {margin:11px 37px 16px;font-size:clamp(24px,7vw,29px);}
+  .home-upgrade .cb-holiday-close {right:5px;top:4px;}
+  .home-upgrade #cbHolidayCopy{font-size:15px;line-height:1.55;margin:19px auto;}
+  .home-upgrade .cb-holiday-book{width:min(100%,238px);}
+}
+@media(max-height:540px){
+  .home-upgrade .cb-holiday-content {padding-top:17px;padding-bottom:19px;}
+  .home-upgrade .cb-holiday-content h2 {margin-top:9px;margin-bottom:9px;}
+  .home-upgrade #cbHolidayCopy {margin:12px auto;}
+}
+@media(prefers-reduced-motion:reduce){
+  .home-upgrade .cb-holiday-book {transition:none;}
+}

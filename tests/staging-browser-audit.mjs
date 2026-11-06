@@ -64,6 +64,21 @@ for (const width of widths) {
    assert(await page.locator('#cbPromoDialog').evaluate(el=>el.open),where,'Wine Night modal did not open');
    await page.locator('[data-close-promo]').click();
    assert(!(await page.locator('#cbPromoDialog').evaluate(el=>el.open)),where,'Wine Night modal did not close');
+   // Original Holiday Parties popup: separate forced preview, real artwork, verified CTA and close.
+   await page.goto(base+'index.html?holiday-preview=1',{waitUntil:'domcontentloaded'});
+   await page.waitForFunction(()=>document.querySelector('#cbHolidayDialog')?.open===true,null,{timeout:10000});
+   assert(await page.locator('#cbHolidayDialog').evaluate(el=>el.open),where,'Holiday Parties popup did not open');
+   assert(await page.locator('#cbHolidayTitle').innerText()==='HOLIDAY PARTIES',where,'Holiday Parties title incorrect');
+   assert(await page.locator('#cbHolidayCopy').innerText()==='The perfect venue for your Holiday Party! Book your party today!',where,'Holiday copy incorrect');
+   const holidayImgOK=await page.locator('.cb-holiday-art').evaluate(img=>img.complete&&img.naturalWidth>0);
+   assert(holidayImgOK,where,'Original Holiday Parties art missing');
+   const holidayLink=await page.locator('.cb-holiday-book').getAttribute('href');
+   assert(holidayLink==='https://ciaobellatrattoria.com/-party?destination=private_parties&promotion=holiday_party&source=pop_up&spot_id=344525',where,'Holiday Parties booking link incorrect');
+   const holidaySize=await page.locator('#cbHolidayDialog').boundingBox();
+   assert(holidaySize&&holidaySize.x>=0&&holidaySize.x+holidaySize.width<=width+2,where,'Holiday popup exceeds viewport');
+   if(width===375||width===1280)await page.screenshot({path:'audit/holiday-'+width+'.png',animations:'disabled'});
+   await page.locator('[data-close-holiday]').click();
+   assert(!(await page.locator('#cbHolidayDialog').evaluate(el=>el.open)),where,'Holiday Parties popup did not close');
    if(width===375||width===1280){
      await page.evaluate(()=>{document.querySelectorAll('img[loading="lazy"]').forEach(img=>img.setAttribute('loading','eager'));});
      await page.waitForTimeout(500);

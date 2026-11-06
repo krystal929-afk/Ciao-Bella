@@ -66,6 +66,32 @@ function openPromo(key){const p=promos[key];if(!promoDialog||!p||galleryDialog?.
 document.querySelectorAll('[data-promo]').forEach(b=>b.addEventListener('click',()=>openPromo(b.dataset.promo)));
 document.querySelector('[data-close-promo]')?.addEventListener('click',()=>promoDialog?.close());
 promoDialog?.addEventListener('click',e=>{if(e.target===promoDialog)promoDialog.close();});
-let last=0;try{last=Number(localStorage.getItem('cb_promo_auto_last')||'0');}catch(e){}
-if(Date.now()-last>7*24*60*60*1000){setTimeout(()=>{if(document.hidden||galleryDialog?.open||promoDialog?.open)return;openPromo('wine');try{localStorage.setItem('cb_promo_auto_last',String(Date.now()));}catch(e){}},12000);}
+// The original holiday graphic is required: never substitute an invented image.
+const holidayDialog=document.getElementById('cbHolidayDialog');
+const holidayImage=holidayDialog?.querySelector('.cb-holiday-art');
+const holidayKey='cb_holiday_seen_v1';
+const previewHoliday=new URLSearchParams(location.search).get('holiday-preview')==='1';
+function holidaySeen(){try{return sessionStorage.getItem(holidayKey)==='1';}catch(e){return false;}}
+function holidayMarkSeen(){try{sessionStorage.setItem(holidayKey,'1');}catch(e){}}
+async function showHoliday(){
+  if(!holidayDialog||holidayDialog.open||galleryDialog?.open||promoDialog?.open||document.hidden)return;
+  if(!holidayImage)return;
+  try {
+    if(!holidayImage.complete)await new Promise((resolve,reject)=>{
+      holidayImage.addEventListener('load',resolve,{once:true});
+      holidayImage.addEventListener('error',reject,{once:true});
+    });
+    if(holidayImage.naturalWidth===0)throw new Error('Original holiday artwork unavailable');
+    if(holidayDialog.open||galleryDialog?.open||promoDialog?.open)return;
+    holidayDialog.showModal();holidayMarkSeen();
+  } catch(error) {console.warn('Holiday Parties popup hidden: approved original artwork unavailable.',error);}
+}
+holidayDialog?.querySelector('[data-close-holiday]')?.addEventListener('click',()=>holidayDialog.close());
+holidayDialog?.addEventListener('click',e=>{if(e.target===holidayDialog)holidayDialog.close();});
+if(previewHoliday){
+  setTimeout(showHoliday,250);
+}else if(!holidaySeen()){
+  setTimeout(showHoliday,8000);
+}
+// Wine Night, Catering and VIP remain manually accessible, without competing automatic overlays.
 })();
