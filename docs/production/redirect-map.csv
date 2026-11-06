@@ -4,3 +4,4 @@ Existing production URL,Intended post-launch URL,Evidence,Status
 "/catering","/catering.html","Observed current catering route","Verified old path"
 "/reservations","/reservations.html","Observed current reservations route","Verified old path"
 "/-party","/events.html","Observed group and parties route","Verified old path"
+"/party","/events.html","Observed existing group/party route","Verified path"
