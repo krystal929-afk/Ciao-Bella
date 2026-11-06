@@ -1,0 +1,38 @@
+name: Preserve original Holiday Parties graphic
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/preserve-holiday-art.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  preserve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Download original artwork from the existing Ciao Bella promotion
+        run: |
+          mkdir -p site/assets
+          curl --fail --location --silent --show-error --retry 3 --max-time 50             'https://static.spotapps.co/assets/admin/hybrid_approach/holiday_party/website_casual.jpg'             --output site/assets/holiday-party-original.jpg
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('site/assets/holiday-party-original.jpg')
+          content=p.read_bytes()
+          assert content[:3]==bytes.fromhex('ffd8ff'), 'Expected original JPEG'
+          assert 10_000 < len(content) < 2_000_000, 'Unexpected JPEG byte size'
+          print('Original Holiday Party graphic preserved:',len(content),'bytes')
+          PY
+      - name: Commit only the approved artwork to staging repository
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site/assets/holiday-party-original.jpg
+          if ! git diff --cached --quiet; then
+            git commit -m "Preserve authentic Holiday Parties promotional artwork for post-SpotHopper staging"
+            git push origin HEAD:main
+          fi
