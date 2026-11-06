@@ -54,58 +54,13 @@ for (const width of widths) {
   }
   if(route==='reservations.html'||route==='catering.html'||route==='events.html'){
    assert(await page.locator('form').count()===0,where,'Placeholder form is still present');
-   assert(await page.locator('a.btn.btn-dark').count()===1,where,'Missing working primary inquiry/booking CTA');
+   assert(await page.locator('a.btn.btn-dark').count()===1,where,'Missing primary inquiry/booking CTA');
   }
   if(route==='menus.html'){
-   assert(await page.locator('.menu-panel').count()===5,where,'Missing a menu category');
-   assert((await page.locator('.menu-item').count())>75,where,'Menu items incomplete');
+   assert(await page.locator('.menu-panel').count()===5,where,'Missing one or more menu categories');
+   assert((await page.locator('.menu-item').count())>100,where,'Menu item coverage insufficient');
    assert(!(await page.locator('main').innerText()).toLowerCase().includes('gluten'),where,'Forbidden dietary labels');
-   assert((await page.locator('main').innerText()).includes('MKT
-   await page.locator('[data-slide-next]').click();
-   await page.waitForFunction(() => document.querySelector('[data-slide-to="1"]')?.getAttribute('aria-pressed')==='true',null,{timeout:8000}).catch(()=>{});
-   assert(await page.locator('[data-slide-to="1"]').getAttribute('aria-pressed')==='true',where,'Carousel next did not advance');
-   await page.locator('[data-gallery="0"]').click();
-   assert(await page.locator('#cbGalleryDialog').evaluate(el=>el.open),where,'Gallery modal did not open');
-   await page.locator('[data-close-gallery]').click();
-   assert(!(await page.locator('#cbGalleryDialog').evaluate(el=>el.open)),where,'Gallery modal did not close');
-   await page.locator('[data-promo="wine"]').click();
-   assert(await page.locator('#cbPromoDialog').evaluate(el=>el.open),where,'Wine Night modal did not open');
-   await page.locator('[data-close-promo]').click();
-   assert(!(await page.locator('#cbPromoDialog').evaluate(el=>el.open)),where,'Wine Night modal did not close');
-   // Original Holiday Parties popup: separate forced preview, real artwork, verified CTA and close.
-   await page.goto(base+'index.html?holiday-preview=1',{waitUntil:'domcontentloaded'});
-   await page.waitForFunction(()=>document.querySelector('#cbHolidayDialog')?.open===true,null,{timeout:10000});
-   assert(await page.locator('#cbHolidayDialog').evaluate(el=>el.open),where,'Holiday Parties popup did not open');
-   assert(await page.locator('#cbHolidayTitle').innerText()==='HOLIDAY PARTIES',where,'Holiday Parties title incorrect');
-   assert(await page.locator('#cbHolidayCopy').innerText()==='The perfect venue for your Holiday Party! Book your party today!',where,'Holiday copy incorrect');
-   const holidayImgOK=await page.locator('.cb-holiday-art').evaluate(img=>img.complete&&img.naturalWidth>0);
-   assert(holidayImgOK,where,'Original Holiday Parties art missing');
-   const holidayLink=await page.locator('.cb-holiday-book').getAttribute('href');
-   assert(holidayLink==='https://ciaobellatrattoria.com/-party?destination=private_parties&promotion=holiday_party&source=pop_up&spot_id=344525',where,'Holiday Parties booking link incorrect');
-   const holidaySize=await page.locator('#cbHolidayDialog').boundingBox();
-   assert(holidaySize&&holidaySize.x>=0&&holidaySize.x+holidaySize.width<=width+2,where,'Holiday popup exceeds viewport');
-   if(width===375||width===1280)await page.screenshot({path:'audit/holiday-'+width+'.png',animations:'disabled'});
-   await page.locator('[data-close-holiday]').click();
-   assert(!(await page.locator('#cbHolidayDialog').evaluate(el=>el.open)),where,'Holiday Parties popup did not close');
-   if(width===375||width===1280){
-     await page.evaluate(()=>{document.querySelectorAll('img[loading="lazy"]').forEach(img=>img.setAttribute('loading','eager'));});
-     await page.waitForTimeout(500);
-     const broken=await page.locator('img').evaluateAll(items=>items.filter(img=>Boolean(img.getAttribute('src')?.trim())&&img.complete&&img.naturalWidth===0).map(img=>img.getAttribute('src')));
-     assert(broken.length===0,where,'Broken images: '+broken.join(', '));
-     await page.screenshot({path:'audit/home-'+width+'.png',fullPage:true,animations:'disabled'});
-   }
-  }
-  assert(jsErrors.length===0,where,'JS exceptions: '+jsErrors.join(' | '));
-  jsErrors.length=0;
- }
- await context.close();
-}
-await browser.close();
-writeFileSync('audit/responsive-results.json',JSON.stringify({date:new Date().toISOString(),routes,widths,results,failures},null,2));
-console.log('Checked '+results.length+' viewport/page combinations across '+widths.join(', ')+'px');
-if(failures.length) { for(const f of failures) console.error('FAIL '+f.where+': '+f.problem); process.exitCode=1; } 
-else console.log('PASS: all automated browser assertions passed.');
-),where,'Market pricing missing');
+   assert((await page.locator('main').innerText()).includes('MKT'),where,'Market pricing missing');
   }
   if(route==='index.html'){
    await page.locator('[data-slide-next]').click();
