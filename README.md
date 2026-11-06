@@ -28,3 +28,8 @@ Approved Code Red edits: MKT$ for Grilled Australian Lamb Chops, Lamb & Bottle f
 - [ ] Menu category tabs switch content
 - [ ] No customer submissions are accepted
 - [ ] No CNAME or production domain references in deployment settings
+
+## Homepage visual upgrade (November 6, 2026)
+The public-facing staging homepage has a crossfade carousel, manual photo controls, image gallery/lightbox, brand-approved promotion dialogs, and responsive booking/order links. Photos are **not** embedded in source control until the provided approved assets are uploaded to `site/assets/`. No change to other page layouts or production DNS.
+
+Order routes to the existing Ciao Bella Slice ordering page. Reservations route to the existing Ciao Bella booking page while the new booking system is under development.
