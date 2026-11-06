@@ -33,12 +33,10 @@ jobs:
           else
             echo "::warning::Approved image bundle not uploaded yet; photo slots use brand-only fallback"
           fi
-      - name: Add original Holiday Parties promotional artwork
+      - name: Verify locally preserved original Holiday Parties artwork
         run: |
-          curl --fail --location --silent --show-error --retry 3 --connect-timeout 12 --max-time 50 \
-            'https://static.spotapps.co/assets/admin/hybrid_approach/holiday_party/website_casual.jpg' \
-            --output site/assets/holiday-party-original.jpg
           test -s site/assets/holiday-party-original.jpg
+          echo "Using client-supplied original artwork from staging repository"
       - name: Upload public staging site
         uses: actions/upload-pages-artifact@v3
         with:

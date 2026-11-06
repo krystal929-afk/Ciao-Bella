@@ -21,12 +21,10 @@ jobs:
         run: |
           unzip -j -o -q Ciao_Bella_Approved_Staging_Images.zip -d site/assets
           test -f site/assets/3635.webp
-      - name: Add original Holiday Parties promotional artwork
+      - name: Verify locally preserved original Holiday Parties artwork
         run: |
-          curl --fail --location --silent --show-error --retry 3 --connect-timeout 12 --max-time 50 \
-            'https://static.spotapps.co/assets/admin/hybrid_approach/holiday_party/website_casual.jpg' \
-            --output site/assets/holiday-party-original.jpg
           test -s site/assets/holiday-party-original.jpg
+          echo "Using client-supplied original artwork from staging repository"
       - name: Start local staging server
         run: |
           python3 -m http.server 8765 --bind 127.0.0.1 --directory site > /tmp/ciaobella-local.log 2>&1 &
@@ -50,6 +48,11 @@ jobs:
             labTBTms:a['total-blocking-time']?.numericValue??null,
             INP:'Not measurable with a single Lighthouse lab load; requires field instrumentation'
           };
+          
+          const lcp=a['largest-contentful-paint-element']?.details?.items?.[0]||null;
+          const perfDiagnostics=Object.keys(a).filter(k=>/lcp|render-blocking|font-display/i.test(k)).map(k=>({key:k,score:a[k]?.score,displayValue:a[k]?.displayValue,details:a[k]?.details?.items?.[0]?.node?.snippet||null}));
+          console.log('LCP ELEMENT '+JSON.stringify(lcp).slice(0,2400));
+          console.log('LCP DIAGNOSTICS '+JSON.stringify(perfDiagnostics).slice(0,4400));
           console.log('LIGHTHOUSE RESULTS '+JSON.stringify(result,null,2));
           fs.writeFileSync('audit/lighthouse-summary.json',JSON.stringify(result,null,2));
           NODE
