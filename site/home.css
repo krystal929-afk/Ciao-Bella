@@ -198,3 +198,29 @@
 .home-upgrade .cb-gallery-card.is-photo-missing img{display:none}
 .home-upgrade .cb-slide.is-photo-missing img,.home-upgrade .cb-intro-mark img.is-photo-missing,.home-upgrade .cb-promo img.is-photo-missing,.home-upgrade .cb-visit-photo img.is-photo-missing,.home-upgrade .cb-closing img.is-photo-missing{visibility:hidden}
 @media(max-width:680px){.home-upgrade .cb-weekly-strip{grid-template-columns:1fr}.home-upgrade .cb-weekly-strip>div{padding:25px}}
+
+
+/* Hero image loading and practical small-device tap targets. */
+.home-upgrade .cb-carousel-arrow{min-width:44px;min-height:44px}
+.home-upgrade .cb-dot{min-width:34px;min-height:44px}
+.home-upgrade .cb-dot:before{top:21px}
+.home-upgrade .cb-pause{min-height:44px}
+.home-upgrade .cb-cta,.home-upgrade .cb-mobile-actions a{min-height:48px}
+.home-upgrade .cb-dialog-close{min-width:44px;min-height:44px}
+.home-upgrade .cb-gallery-dialog .cb-lightbox-arrow{min-width:44px;min-height:44px}
+@media(max-width:680px){
+ .home-upgrade .cb-hero-bottom{gap:8px}
+ .home-upgrade .cb-dot{min-width:30px}
+ .home-upgrade .cb-count{display:none}
+ .home-upgrade .cb-carousel-nav{gap:5px}
+ .home-upgrade .cb-pause{min-width:56px;font-size:10px}
+ .home-upgrade .cb-gallery-dialog-inner{grid-template-columns:44px minmax(0,1fr) 44px}
+ .home-upgrade .cb-gallery-dialog .cb-lightbox-arrow{min-width:44px}
+}
+@media(max-width:380px){
+ .home-upgrade .cb-dots{display:none}
+ .home-upgrade .cb-count{display:block}
+ .home-upgrade .cb-hero-bottom{justify-content:space-between}
+ .home-upgrade .cb-hero-content{padding-bottom:140px}
+ .home-upgrade .cb-hero h1{font-size:clamp(35px,10vw,46px)}
+}

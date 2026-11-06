@@ -1,2 +1,4 @@
+# Ciao Bella GitHub Pages staging site. Page-level noindex is authoritative.
+# Do not block crawlers from reading the noindex meta tag.
 User-agent: *
-Disallow: /
+Allow: /
