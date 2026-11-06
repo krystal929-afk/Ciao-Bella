@@ -54,3 +54,10 @@ LCP ≤ 2.5 seconds, INP ≤ 200 milliseconds, CLS ≤ 0.1 at the 75th percentil
 
 ## Audit limitations
 The responsive workflow tests layout and interactive controls but is **not** a substitute for manual screen-reader testing or a full independent accessibility audit. SEO structured data was JSON-parsed in source; Google's remote Rich Results Test and PageSpeed Insights have **not** been run. No production indexing checks were performed.
+
+## 2026-11-06 launch remediation update
+- Complete restaurant-supplied menu inventory now staged as five HTML categories with 137 individually structured menu entries, Code Red adjustments, no gluten-free claims. Owner price/content sign-off **still required**.
+- Removed deliberately disabled demo reservation/catering/party forms; each destination now links directly to the verified SpotHopper-hosted booking or inquiry form, not back through the soon-to-be-migrated domain.
+- Holiday Parties original JPEG committed under `site/assets/`. No longer fetched from SpotHopper during staging builds.
+- Browser CI now scans every internal link and fragment for actual responses, checks provider CTAs, verifies holiday popup and interactions at five widths. The provider forms are still dependent on active SpotHopper services.
+- Runbook: `docs/launch-cutover-runbook.md`. Pricing issues: `docs/menu-price-discrepancies.md`.
