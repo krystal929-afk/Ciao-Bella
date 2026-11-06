@@ -1,0 +1,6 @@
+Existing production URL,Intended post-launch URL,Evidence,Status
+"/","/","Observed existing public homepage","Verified path"
+"/food-menu","/menus.html","Observed existing public menu page","Verified old path"
+"/catering","/catering.html","Observed current catering route","Verified old path"
+"/reservations","/reservations.html","Observed current reservations route","Verified old path"
+"/-party","/events.html","Observed group and parties route","Verified old path"
