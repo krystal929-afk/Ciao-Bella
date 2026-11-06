@@ -60,7 +60,7 @@ for (const width of widths) {
    assert(await page.locator('.menu-panel').count()===5,where,'Missing one or more menu categories');
    assert((await page.locator('.menu-item').count())>100,where,'Menu item coverage insufficient');
    assert(!(await page.locator('main').innerText()).toLowerCase().includes('gluten'),where,'Forbidden dietary labels');
-   assert((await page.locator('main').innerText()).includes('MKT'),where,'Market pricing missing');
+   assert((await page.locator('main').textContent()).includes('MKT'),where,'Market pricing missing');
   }
   if(route==='index.html'){
    await page.locator('[data-slide-next]').click();

@@ -88,10 +88,18 @@ async function showHoliday(){
 }
 holidayDialog?.querySelector('[data-close-holiday]')?.addEventListener('click',()=>holidayDialog.close());
 holidayDialog?.addEventListener('click',e=>{if(e.target===holidayDialog)holidayDialog.close();});
+document.querySelector('[data-open-holiday]')?.addEventListener('click',showHoliday);
 if(previewHoliday){
   setTimeout(showHoliday,250);
 }else if(!holidaySeen()){
-  setTimeout(showHoliday,8000);
+  // Do not interrupt the initial page paint or interfere with Largest Contentful Paint.
+  // Display only after the visitor has intentionally scrolled into the page.
+  const onEngagedScroll=()=>{
+    if(window.scrollY<380)return;
+    window.removeEventListener('scroll',onEngagedScroll);
+    window.setTimeout(showHoliday,1100);
+  };
+  window.addEventListener('scroll',onEngagedScroll,{passive:true});
 }
 // Wine Night, Catering and VIP remain manually accessible, without competing automatic overlays.
 })();
