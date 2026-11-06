@@ -185,3 +185,16 @@
 .home-upgrade .cb-slide,.home-upgrade .cb-slide img,.home-upgrade .cb-gallery-card img,.home-upgrade .cb-reveal,.home-upgrade.cb-motion-ready .cb-reveal{transition:none!important;transform:none!important;animation:none!important;opacity:1}
 .home-upgrade .cb-slide:not(.is-active){opacity:0}
 }
+
+/* Keep the selected approved Lora face throughout homepage content. */
+.home-upgrade .cb-main{font-family:var(--serif)}
+.home-upgrade .cb-weekly-strip{margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.home-upgrade .cb-weekly-strip>div{background:#f4eee5;border:1px solid #e0d4c4;padding:28px 32px}
+.home-upgrade .cb-weekly-strip h3{font-size:25px;margin:8px 0}
+.home-upgrade .cb-weekly-strip p{font:15px/1.8 var(--serif);margin-bottom:10px}
+.home-upgrade .cb-weekly-strip a{font:700 11px var(--sans);color:var(--cb-wine);text-decoration:none;border-bottom:1px solid currentColor}
+.home-upgrade .cb-gallery-card.is-photo-missing{background:#e0d7c9;display:grid;place-items:center}
+.home-upgrade .cb-gallery-card.is-photo-missing:after{content:"Ciao Bella";font:italic 500 24px var(--serif);color:#887665}
+.home-upgrade .cb-gallery-card.is-photo-missing img{display:none}
+.home-upgrade .cb-slide.is-photo-missing img,.home-upgrade .cb-intro-mark img.is-photo-missing,.home-upgrade .cb-promo img.is-photo-missing,.home-upgrade .cb-visit-photo img.is-photo-missing,.home-upgrade .cb-closing img.is-photo-missing{visibility:hidden}
+@media(max-width:680px){.home-upgrade .cb-weekly-strip{grid-template-columns:1fr}.home-upgrade .cb-weekly-strip>div{padding:25px}}
