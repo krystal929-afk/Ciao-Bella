@@ -3,7 +3,7 @@ if(!document.body.classList.contains('home-upgrade'))return;
 const reduce=window.matchMedia('(prefers-reduced-motion: reduce)');
 const slides=[...document.querySelectorAll('[data-hero-slide]')];
 const dots=[...document.querySelectorAll('[data-slide-to]')];
-let slide=0; let timer=null;let paused=reduce.matches;const interval=6500;
+let slide=0; let timer=null;let paused=reduce.matches;const interval=6500;const firstTransitionDelay=17000;const startTime=performance.now();
 let imageChangeToken=0;
 function prepareSlide(index){
  const slideNode=slides[index];const image=slideNode?.querySelector('img[data-src]');
@@ -27,7 +27,7 @@ function showSlide(index){
  else apply();
 }
 function stop(){if(timer){clearInterval(timer);timer=null;}}
-function start(){stop();if(paused||reduce.matches||document.hidden||slides.length<2)return;timer=window.setInterval(()=>showSlide(slide+1),interval);}
+function start(){stop();if(paused||reduce.matches||document.hidden||slides.length<2)return;const remaining=Math.max(0,firstTransitionDelay-(performance.now()-startTime));if(remaining>0){timer=window.setTimeout(()=>{timer=window.setInterval(()=>showSlide(slide+1),interval);showSlide(slide+1);},remaining);}else{timer=window.setInterval(()=>showSlide(slide+1),interval);}}
 const hero=document.querySelector('.cb-hero');let hovering=false;let focused=false;
 function refresh(){if(hovering||focused)stop();else start();}
 hero?.addEventListener('mouseenter',()=>{hovering=true;refresh();});
