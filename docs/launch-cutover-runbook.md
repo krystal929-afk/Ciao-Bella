@@ -17,7 +17,7 @@
 - [x] Authentic-only image ZIP supplied, extracted during staging deployment; no stock or generated photographs.
 - [x] Carousel manual buttons, gallery, popup close, responsive navigation and booking CTA tested by Chromium at 320 / 375 / 390 / 768 / 1280px. Auto carousel transition begins after initial content stabilizes.
 - [x] Holiday Parties artwork is the original SpotHopper promotion; staged modal includes verified provider-hosted party destination.
-- [ ] Preserve a permanent client-authorized copy of the original Holiday Parties JPEG in the repository/asset storage, not just fetched live from SpotHopper each build. Future deploys must work after provider shutdown.
+- [x] Original Holiday Parties JPEG copied into `site/assets/holiday-party-original.jpg` and verified in the public staging repository. Deploy/test workflows now use the local file rather than fetching live from SpotHopper.
 
 ## P2: SEO & performance
 
@@ -30,7 +30,7 @@
 
 1. **Owner/registrar gate**: Verify lawful domain owner, GoDaddy transfer completion or registrar access and DNS edit permissions. None confirmed here.
 2. **Full DNS snapshot before any change**: Export current authoritative NS, A, AAAA, CNAME, MX, TXT (SPF, DKIM, DMARC, domain verifications), CAA and any SRV records. Confirm mail delivery services. Preserve the exact current DNS values and TTLs in a secure owner-held location, **not public GitHub**.
-3. **Old paths inventory**: Confirmed: `/`, `/food-menu`, `/reservations`, `/catering`, `/party`, `/-party`. Full crawl and Search Console export are outstanding. Watch query-parameter paths, alternate hostnames and the correct canonical host.
+3. **Old paths inventory**: Confirmed: `/`, `/food-menu`, `/reservations`, `/catering`, `/party`, `/-party`. Full crawl and Search Console export are outstanding. Watch query-parameter paths, alternate hostnames and the correct canonical host. **Printed QR menu codes may still target `/food-menu`** and need continuity testing.
 4. **Redirect solution required**: GitHub Pages cannot issue arbitrary path-specific server-side 301s. Arrange an authorized edge/proxy redirect service (for example DNS/CDN rules) or a host capable of 301/308 redirects for old paths, without creating loops. Test each old URL before cutover. `docs/production/redirect-map.csv` is **preparation only**.
 5. **Hosting gate**: Verify the final production hosting and customer-service endpoints first, leaving old services live. Staging remains isolated and noindexed.
 6. **Owner approval gate**: Require explicit approval for the exact DNS/hosting cutover and a rollback decision-maker. A deadline alone is not authorization.
