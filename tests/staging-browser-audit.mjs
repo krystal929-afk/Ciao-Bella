@@ -46,6 +46,25 @@ for (const width of widths) {
     await page.locator('.nav-toggle').click();
     assert(!await page.locator('.nav').isVisible(),where,'Mobile nav did not close');
   }
+  if(width===320){
+    const sameSiteLinks=await page.locator('a[href]').evaluateAll(els=>els.map(el=>{
+      const href=el.getAttribute('href')||'';
+      if(!href.trim())return {href,status:'empty'};
+      const abs=new URL(href,location.href);
+      return abs.origin===location.origin?{href,url:abs.href,hash:abs.hash}:{href,status:'external'};
+    }).filter(x=>x.status==='empty'||x.url));
+    for(const l of sameSiteLinks){
+      assert(l.status!=='empty',where,'Empty internal CTA href');
+      if(!l.url)continue;
+      const resp=await page.request.get(l.url.split('#')[0],{timeout:8000});
+      assert(resp.ok(),where,'Broken internal link '+l.href+': HTTP '+resp.status());
+      if(l.hash){
+        const raw=await resp.text();
+        const id=decodeURIComponent(l.hash.slice(1));
+        assert(raw.includes('id="'+id+'"')||raw.includes("id='"+id+"'"),where,'Missing anchor '+l.href);
+      }
+    }
+  }
   if(route==='menus.html'){
    await page.locator('#tab-menu-1').click();
    assert(await page.locator('#menu-1').isVisible(),where,'Menu tab did not switch');
