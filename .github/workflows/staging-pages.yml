@@ -23,6 +23,16 @@ jobs:
         uses: actions/configure-pages@v5
         with:
           enablement: true
+      - name: Restore approved image assets for staging
+        run: |
+          if [ -f "Ciao_Bella_Approved_Staging_Images.zip" ]; then
+            unzip -j -o -q "Ciao_Bella_Approved_Staging_Images.zip" -d "site/assets"
+            test -f "site/assets/3640.png"
+            test -f "site/assets/3635.webp"
+            echo "Approved Ciao Bella assets installed"
+          else
+            echo "::warning::Approved image bundle not uploaded yet; photo slots use brand-only fallback"
+          fi
       - name: Upload public staging site
         uses: actions/upload-pages-artifact@v3
         with:
