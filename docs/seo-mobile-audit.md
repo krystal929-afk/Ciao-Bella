@@ -15,12 +15,12 @@
 | Local GEO / AI readability | PASS (source), NEEDS WORK (indexing) | Consistent location, dinners, lunch start date, and available specials appear in HTML and JSON-LD. A noindex staging site is intentionally not eligible for search visibility. No AI-only markup. |
 | Social sharing metadata | PASS (source), NEEDS WORK (external preview) | Open Graph and Twitter summary meta tags added with the client-owned logo or photos. Validate with real share debuggers after approval. |
 | Images & loading | PASS (source), NEEDS WORK (real metrics) | Only Ciao Bella-approved packaged image files; hero image explicitly preloaded and `fetchpriority=high`. Below-fold gallery imagery remains lazy loaded. Actual LCP, INP and CLS not measured from public traffic. |
-| Responsive & keyboard code | PASS (source), BROWSER VERIFICATION PENDING | Site includes styles for 320, 375, 390, 768 and desktop; touch-target and tab-arrow-key improvements added. See GitHub Actions browser report for actual overflow/interactions. |
+| Responsive & keyboard code | PASS (source and browser testing) | Site includes styles for 320, 375, 390, 768 and desktop; touch-target and tab-arrow-key improvements added. GitHub Chromium job verified 40 viewport/page combinations at 320, 375, 390, 768 and 1280px with zero test failures on the final commit. |
 | Modal accessibility | NEEDS WORK | Native dialogs, close buttons, keyboard Escape and reduced-motion support exist; full screen-reader and WCAG audit still required. |
 | External ordering & reservations | NEEDS WORK | Public-facing external actions link to existing systems, not new forms. Do not claim checkout or confirmation testing until verified with the restaurant. |
 | Local SEO URL preservation | NEEDS WORK | Verified old URLs mapped in `production/redirect-map.csv`. Full production crawl, Search Console export and edge/host 301 redirect capability require authorization and testing. |
 | Production sitemap / indexing | PREPARED, NOT ACTIVATED | `production/sitemap.xml`, `production/robots.txt`, and `production/canonical-map.json` are reference-only files outside `site/`. They are **not** deployed to staging and must not be used until explicit production authorization. |
-| Lighthouse / PageSpeed / Core Web Vitals | BLOCKED (measurement) | Public remote benchmark and field data cannot be verified from this environment. Browser-based staging layout checks run separately in CI, but do not substitute for Lighthouse or real-user CWV measurements. |
+| Lighthouse / PageSpeed / Core Web Vitals | NEEDS WORK (lab); BLOCKED (field) | Actual mobile Lighthouse lab on the local GitHub runner measured Performance **86**, Accessibility **100**, SEO **66** (staging noindex affects SEO scoring), LCP **4,128ms**, CLS **0.00054** and TBT **83ms**. LCP exceeds the 2.5s target. INP and live field Core Web Vitals remain unmeasured. |
 
 ## Targets (not claims)
 LCP ≤ 2.5 seconds, INP ≤ 200 milliseconds, CLS ≤ 0.1 at the 75th percentile of real visits (mobile and desktop). These are targets, **not current measurements**.
@@ -43,3 +43,14 @@ LCP ≤ 2.5 seconds, INP ≤ 200 milliseconds, CLS ≤ 0.1 at the 75th percentil
 - https://developers.google.com/search/docs/crawling-indexing/site-move-with-url-changes
 - https://support.google.com/webmasters/answer/9370220
 - https://developers.google.com/search/docs/appearance/core-web-vitals
+
+## Confirmed audit executions (November 6, 2026)
+
+- [Chromium mobile & desktop verification](https://github.com/krystal929-afk/Ciao-Bella/actions/runs/42305897092): **PASS**, 40 of 40 checks, including responsive layout, menu tabs, modal interactions, navigation, loaded images, JS errors and horizontal overflow.
+- [Mobile Lighthouse lab](https://github.com/krystal929-afk/Ciao-Bella/actions/runs/42305897441): **Performance 86, Accessibility 100, SEO 66.** Lab LCP **4,128ms** (NEEDS WORK), CLS **0.00054** (PASS), TBT **83ms** (context only). These are locally simulated Lighthouse results, **not field scores** and do not measure INP.
+- The published [staging preview](https://krystal929-afk.github.io/Ciao-Bella/) passed GitHub Pages deployment. It is still **noindex**, and the complete menu, production SEO, external integrations and actual field data remain outstanding.
+- Current production website is still reported on November 6 as closing at **9 PM and omitting Monday**, which conflicts with the approved **daily 5–10 PM** schedule. **No change was made to the production site.** This issue belongs on the operations correction list until migration.
+- The staging "Order Online" button was switched to the Ciao Bella Slice address linked directly by the existing production homepage. The existing reservation URL also originates from the live site; new reservation engine not yet live.
+
+## Audit limitations
+The responsive workflow tests layout and interactive controls but is **not** a substitute for manual screen-reader testing or a full independent accessibility audit. SEO structured data was JSON-parsed in source; Google's remote Rich Results Test and PageSpeed Insights have **not** been run. No production indexing checks were performed.
