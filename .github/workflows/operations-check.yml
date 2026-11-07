@@ -1,0 +1,41 @@
+name: Secure operations schema tests
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'operations/**'
+      - '.github/workflows/operations-check.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_PASSWORD: ci-only
+          POSTGRES_DB: ciaobella_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d ciaobella_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      PGPASSWORD: ci-only
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install PostgreSQL client
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq postgresql-client
+      - name: Apply private operations schema to disposable local DB
+        run: psql -v ON_ERROR_STOP=1 -h 127.0.0.1 -U postgres -d ciaobella_test -f operations/schema.sql
+      - name: Test consent and booking safety with synthetic records
+        run: psql -v ON_ERROR_STOP=1 -h 127.0.0.1 -U postgres -d ciaobella_test -f operations/tests.sql
+      - name: Test CSV import validation offline
+        run: node operations/validate-csv.mjs --self-test
