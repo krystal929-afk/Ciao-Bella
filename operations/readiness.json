@@ -119,9 +119,9 @@
     },
     {
       "id": "booking_export",
-      "ready": false,
+      "ready": true,
       "owner": "Restaurant and SpotHopper",
-      "proof": "Full future confirmed/cancelled bookings with source IDs and UTC timestamps"
+      "proof": "User confirmed all 13 reservation screenshots are complete; one future confirmed booking, 12 historical records; source IDs are screenshot references, not original provider IDs. Private handoff packet prepared; target reconciliation still outstanding."
     },
     {
       "id": "guest_and_consent_export",
