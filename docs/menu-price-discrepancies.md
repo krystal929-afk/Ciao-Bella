@@ -1,6 +1,6 @@
-# Ciao Bella menu-pricing conflict register — owner approval required
+# Ciao Bella price variance register — Kat's new menus are authoritative for staging
 
-Two restaurant-associated sources disagree. The new PDF files used for staging are **not yet confirmed as final public pricing**. The existing Slice ordering menu currently serves different prices and dishes.
+Two restaurant-associated sources disagree. **Approved staging rule:** Follow Kat’s November 3–4 email and attached new menus, with later November 4 instructions and Code Red corrections overriding earlier pricing or dietary wording. Existing Slice prices may differ, but they do not override the new website menu. Nothing here changes Slice or production.
 
 | Item | Supplied new menu PDF | Existing live Slice ordering | Consequence |
 | --- | --- | --- | --- |
@@ -13,4 +13,4 @@ Two restaurant-associated sources disagree. The new PDF files used for staging a
 
 Sources: supplied `Ciao Bella Dinner Menu_2.pdf`, `Ciao Bella Lunch Menu_2.pdf`, Ciao Bella live Slice ordering at `https://slicelife.com/restaurants/fl/deerfield-beach/33441/ciao-bella-trattoria-deerfield-beach/menu` (checked 2026-11-06), and Code Red client menu corrections.
 
-**Needed from client:** approve whether the PDF prices are the current public dine-in prices and whether Slice will remain on distinct channel pricing. Do not silently modify Slice from this staging repository. No backend access to Slice used.
+**Follow-up with restaurant:** reconcile prices and availability across Slice/other ordering services, without automatically blocking staging. The user will approve exactly what is published to production. No Slice backend modifications.

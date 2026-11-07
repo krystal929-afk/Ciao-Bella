@@ -61,3 +61,6 @@ The responsive workflow tests layout and interactive controls but is **not** a s
 - Holiday Parties original JPEG committed under `site/assets/`. No longer fetched from SpotHopper during staging builds.
 - Browser CI now scans every internal link and fragment for actual responses, checks provider CTAs, verifies holiday popup and interactions at five widths. The provider forms are still dependent on active SpotHopper services.
 - Runbook: `docs/launch-cutover-runbook.md`. Pricing issues: `docs/menu-price-discrepancies.md`.
+
+## Nov 6 website content authority
+The user approved Kat’s November 3–4 instructions plus the attached NEW menus for staging; later Nov 4 email and approved Code Red supersede earlier contradictory notes. Website pricing uses the new PDFs, not older Slice listings. NEW, FAMILY RECIPE and HOUSE FAVORITE labels retained in HTML where documented. Dinner daily 5–10 PM; lamb chops from Nov 10 at MKT$; lunch daily 11 AM–2 PM from Nov 26; no gluten-free labels. **This does not authorize publishing to the production domain.**

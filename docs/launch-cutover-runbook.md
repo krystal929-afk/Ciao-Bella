@@ -5,7 +5,7 @@
 ## P0: Customer operations
 
 - [x] Staging routes to five HTML menu categories, 137 menu entries, and the four confirmed market-priced chef specials. Based on the restaurant-supplied PDF menu files with Code Red dietary, hours, and pricing overrides.
-- [ ] **Owner confirms each item, description, availability and price.** The supplied newer menus and the live Slice menu currently conflict. See `docs/menu-price-discrepancies.md`.
+- [x] **Staging menu authority approved:** Use Kat's November 3–4 email and supplied new menu PDFs, applying later Code Red corrections first. User decides the exact production version. Slice price variance remains a restaurant operations follow-up.
 - [x] Staging booking/lead CTAs open the **verified provider-hosted** endpoints for reservations (`tmt.spotapps.co/reservations?spot_id=344525`), private parties (`tmt.spotapps.co/private-parties?spot_id=344525`) and catering (`tmt.spotapps.co/catering?spot_id=344525`). The existing Slice ordering link was verified against the live restaurant homepage.
 - [ ] **Must confirm with SpotHopper that direct hosted booking/inquiry forms continue functioning after website hosting changes.** Do not terminate service or unlink forms.
 - [ ] Test an owner-approved *actual* reservation, catering request and private event request end-to-end and verify staff notification/recording; never create arbitrary customer bookings as a test.
@@ -38,4 +38,4 @@
 8. **Rollback**: If any critical flow fails, restore the recorded prior website DNS A/AAAA/CNAME and/or prior nameservers (as appropriate), while retaining all MX/TXT records and leaving SpotHopper running. Test public home + legacy URLs + ordering + booking + email after restoration. DNS cache/TTL means restoration may not be instant. Call owner before switching.
 9. **Go-live SEO**: Only once approved, remove noindex in the **production** build, publish correct canonical links and sitemap; validate with Search Console URL inspection. This is a same-domain hosting move, not a Change of Address event.
 
-**Hard stop:** No full menu owner confirmation, no DNS inventory/ownership proof, no proven redirects, or no working reservation/inquiry backend = **keep the existing production website operational**.
+**Hard stop:** Without explicit user approval for the exact production cutover, DNS control/backup, proven redirects, or proven booking/inquiry backend continuity, **keep the existing production website operational**. Price variances with Slice are tracked for operational cleanup.

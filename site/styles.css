@@ -52,3 +52,8 @@
 .cb-service-info h3{margin:15px 0}
 .cb-service-info a{overflow-wrap:anywhere}
 @media(max-width:700px){.menu-subsection-heading{display:block}.menu-subsection-heading p{margin-top:10px}.menu-list{grid-template-columns:1fr}.cb-service-route{grid-template-columns:1fr;gap:30px}.menu-subsection{margin-top:30px}.menu-category-tabs .tab{padding:14px}.menu-item{padding:17px 0}.menu-item h4{font-size:19px}}
+
+/* Approved menu labels from Kat's supplied original PDFs. */
+.menu-tag{display:inline-block;vertical-align:middle;margin-left:5px;padding:3px 6px;font:700 9px/1.35 var(--sans);color:#7c352f;border:1px solid #bd9783;letter-spacing:.06em;white-space:nowrap;text-transform:uppercase}
+.menu-tag-family-recipe,.menu-tag-house-favorite{color:#34563d;border-color:#9aaa94}
+@media(max-width:380px){.menu-tag{font-size:8px;padding:3px 4px}}
