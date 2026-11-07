@@ -3,7 +3,7 @@ BEGIN;
 DO $$
 DECLARE g uuid; r uuid; t uuid;
 BEGIN
- IF (SELECT count(*) FROM pg_tables WHERE schemaname='ciao_ops') <> 10 THEN
+ IF (SELECT count(*) FROM pg_tables WHERE schemaname='ciao_ops') <> 11 THEN
   RAISE EXCEPTION 'Missing tables';
  END IF;
  IF EXISTS(SELECT 1 FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace
