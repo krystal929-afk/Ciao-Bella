@@ -128,6 +128,38 @@ for (const width of widths) {
  }
  await context.close();
 }
+// QR and legacy deep-link compatibility tests; these do not imply real 301 redirects.
+const legacyRoutes = [
+ ['food-menu','menus.html'],['party','events.html'],['-party','events.html'],
+ ['reservations','reservations.html'],['catering','catering.html'],
+ ['specials','specials.html'],['drinks','menus.html']
+];
+const aliasContext=await browser.newContext({viewport:{width:390,height:820}});
+const aliasPage=await aliasContext.newPage();
+for(const [legacy,target] of legacyRoutes){
+ const where='legacy path /'+legacy+'/';
+ try{
+  await aliasPage.goto(base+legacy+'/',{waitUntil:'domcontentloaded'});
+  await aliasPage.waitForURL(new RegExp('/'+target.replaceAll('.','\\.')+'
+writeFileSync('audit/responsive-results.json',JSON.stringify({date:new Date().toISOString(),routes,widths,results,failures},null,2));
+console.log('Checked '+results.length+' viewport/page combinations, '+legacyRoutes.length+' legacy QR/deep-link routes, and all service fallback links.');
+if(failures.length) { for(const f of failures) console.error('FAIL '+f.where+': '+f.problem); process.exitCode=1; } 
+else console.log('PASS: all automated browser assertions passed.');
+),{timeout:7000});
+  assert(aliasPage.url().endsWith('/'+target),where,'Did not land on '+target);
+ }catch(e){assert(false,where,'Legacy QR link failed: '+e.message);}
+}
+const cfg=await aliasPage.request.get(base+'services.json');
+assert(cfg.ok(),'service switchboard','Missing service config');
+if(cfg.ok()){
+ const conf=await cfg.json();
+ const names=['reservations','catering','private_events','ordering'];
+ assert(names.every(n=>conf.services?.[n]?.verified_destination===true),'service switchboard','Missing verified fallback destinations');
+ assert(conf.services?.reservations?.provider==='SpotHopper','service switchboard','Booking provider dependency concealed');
+ assert(conf.services?.ordering?.provider==='Slice','service switchboard','Independent order provider changed');
+}
+await aliasContext.close();
+
 await browser.close();
 writeFileSync('audit/responsive-results.json',JSON.stringify({date:new Date().toISOString(),routes,widths,results,failures},null,2));
 console.log('Checked '+results.length+' viewport/page combinations across '+widths.join(', ')+'px');
