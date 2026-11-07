@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "staging_only": true,
+  "services": {
+    "reservations": {
+      "url": "https://tmt.spotapps.co/reservations?spot_id=344525",
+      "verified_destination": true,
+      "provider": "SpotHopper",
+      "replacement_ready": false,
+      "notes": "Temporary existing service. DO NOT cancel before replacement"
+    },
+    "catering": {
+      "url": "https://tmt.spotapps.co/catering?spot_id=344525",
+      "verified_destination": true,
+      "provider": "SpotHopper",
+      "replacement_ready": false,
+      "notes": "Temporary existing service. DO NOT cancel before replacement"
+    },
+    "private_events": {
+      "url": "https://tmt.spotapps.co/private-parties?spot_id=344525",
+      "verified_destination": true,
+      "provider": "SpotHopper",
+      "replacement_ready": false,
+      "notes": "Temporary existing service. DO NOT cancel before replacement"
+    },
+    "ordering": {
+      "url": "https://slicelife.com/restaurants/fl/deerfield-beach/33441/ciao-bella-trattoria-deerfield-beach/menu?destination=order&promotion=order_online&source=pop_up&spot_id=344525",
+      "verified_destination": true,
+      "provider": "Slice",
+      "replacement_ready": true,
+      "notes": "Existing online ordering; not owned by SpotHopper"
+    }
+  }
+}

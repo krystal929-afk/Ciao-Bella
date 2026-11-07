@@ -65,6 +65,13 @@ for (const width of widths) {
       }
     }
   }
+
+  if(width===320){
+    const tagged=await page.locator('a[data-service]').count();
+    if(['index.html','menus.html','reservations.html','catering.html','events.html'].includes(route)){
+      assert(tagged>0,where,'Missing external service-config marker');
+    }
+  }
   if(route==='menus.html'){
    await page.locator('#tab-menu-1').click();
    assert(await page.locator('#menu-1').isVisible(),where,'Menu tab did not switch');

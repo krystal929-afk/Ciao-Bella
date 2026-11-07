@@ -39,3 +39,5 @@ jobs:
         run: psql -v ON_ERROR_STOP=1 -h 127.0.0.1 -U postgres -d ciaobella_test -f operations/tests.sql
       - name: Test CSV import validation offline
         run: node operations/validate-csv.mjs --self-test
+      - name: Refuse cutover when migration gates are incomplete
+        run: node operations/check-readiness.mjs

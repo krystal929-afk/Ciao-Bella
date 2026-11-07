@@ -28,4 +28,26 @@ tabs.forEach(function(tab){
   chooseTab(tabs[next],true);
  });
 });
+
+// External service switchboard. It only rewrites explicitly tagged CTAs from an
+// independently reviewed static config; current URLs remain the HTML fallback.
+async function loadServiceLinks(){
+ try{
+  const response=await fetch('services.json',{cache:'no-store'});
+  if(!response.ok)return;
+  const settings=await response.json();
+  if(settings.version!==1||settings.staging_only!==true)return;
+  for(const link of document.querySelectorAll('a[data-service]')){
+   const key=link.getAttribute('data-service');
+   const configured=settings.services?.[key];
+   if(configured?.verified_destination!==true)continue;
+   const uri=new URL(configured.url);
+   if(uri.protocol!=='https:')continue;
+   link.href=uri.href;
+   link.rel='noopener noreferrer';
+  }
+ }catch(e){console.warn('Using existing service links; no replacement link loaded.');}
+}
+loadServiceLinks();
+
 })();
