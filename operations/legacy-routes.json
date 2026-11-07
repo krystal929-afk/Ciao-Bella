@@ -1,0 +1,50 @@
+{
+  "generated_at": "2026-11-06",
+  "staging_only": true,
+  "requires_production_301s": true,
+  "source": "Observed SpotHopper public paths + QR link preservation preparation; unverified QR codes require inventory",
+  "routes": [
+    {
+      "legacy_path": "/food-menu",
+      "target_file": "menus.html",
+      "staging_fallback": "/food-menu/",
+      "production_status": "server_redirect_not_configured"
+    },
+    {
+      "legacy_path": "/party",
+      "target_file": "events.html",
+      "staging_fallback": "/party/",
+      "production_status": "server_redirect_not_configured"
+    },
+    {
+      "legacy_path": "/-party",
+      "target_file": "events.html",
+      "staging_fallback": "/-party/",
+      "production_status": "server_redirect_not_configured"
+    },
+    {
+      "legacy_path": "/reservations",
+      "target_file": "reservations.html",
+      "staging_fallback": "/reservations/",
+      "production_status": "server_redirect_not_configured"
+    },
+    {
+      "legacy_path": "/catering",
+      "target_file": "catering.html",
+      "staging_fallback": "/catering/",
+      "production_status": "server_redirect_not_configured"
+    },
+    {
+      "legacy_path": "/specials",
+      "target_file": "specials.html",
+      "staging_fallback": "/specials/",
+      "production_status": "server_redirect_not_configured"
+    },
+    {
+      "legacy_path": "/drinks",
+      "target_file": "menus.html",
+      "staging_fallback": "/drinks/",
+      "production_status": "server_redirect_not_configured"
+    }
+  ]
+}
