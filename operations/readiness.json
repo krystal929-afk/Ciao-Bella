@@ -1,0 +1,175 @@
+{
+  "version": "2026-11-06-code-red",
+  "publication_scope": "staging_only",
+  "production_authorized": false,
+  "overview": "Never cancel SpotHopper or change the live domain until all critical gates are verified.",
+  "services": [
+    {
+      "id": "website",
+      "provider": "GitHub Pages",
+      "status": "independent_staging",
+      "verified": true,
+      "notes": "Public site and eight content pages; production not deployed"
+    },
+    {
+      "id": "qr_menu",
+      "provider": "GitHub Pages",
+      "status": "independent_staging",
+      "verified": true,
+      "notes": "Staging /food-menu/ compatibility route; real printed QR targets require inventory"
+    },
+    {
+      "id": "assets",
+      "provider": "GitHub repository",
+      "status": "independent_staging",
+      "verified": true,
+      "notes": "Ciao Bella approved photography, holiday art and logo"
+    },
+    {
+      "id": "slice_ordering",
+      "provider": "Slice",
+      "status": "external_independent",
+      "verified": true,
+      "notes": "Existing ordering destination link; checkout/staff-delivery end-to-end not independently tested"
+    },
+    {
+      "id": "phone_email_links",
+      "provider": "Restaurant contact",
+      "status": "external_independent",
+      "verified": true,
+      "notes": "Click-to-call and email fallback; inbox operational status unverified"
+    },
+    {
+      "id": "promotions_web",
+      "provider": "GitHub Pages",
+      "status": "independent_staging",
+      "verified": true,
+      "notes": "Popup, promotions and specials visible; outbound marketing still external"
+    },
+    {
+      "id": "reservations",
+      "provider": "SpotHopper",
+      "status": "dependent",
+      "verified": false,
+      "notes": "Provider-hosted booking flow; no complete future reservation export or replacement"
+    },
+    {
+      "id": "table_management",
+      "provider": "SpotHopper",
+      "status": "dependent",
+      "verified": false,
+      "notes": "Floor plan, table capacity/turn time and confirmed staff workflows unavailable"
+    },
+    {
+      "id": "waitlist",
+      "provider": "SpotHopper",
+      "status": "dependent",
+      "verified": false,
+      "notes": "No verified current live waitlist export; phone/SMS notifications not replaced"
+    },
+    {
+      "id": "crm",
+      "provider": "SpotHopper",
+      "status": "dependent",
+      "verified": false,
+      "notes": "12 potential SMS contacts visible, email subscribers not exportable through present admin view; full guest data unknown"
+    },
+    {
+      "id": "email_marketing",
+      "provider": "SpotHopper",
+      "status": "dependent",
+      "verified": false,
+      "notes": "Campaign and recipient-level opt-in/out records not migrated"
+    },
+    {
+      "id": "catering",
+      "provider": "SpotHopper",
+      "status": "dependent",
+      "verified": false,
+      "notes": "Current external inquiry endpoint retained for continuity; no replacement submission pipeline"
+    },
+    {
+      "id": "private_events",
+      "provider": "SpotHopper",
+      "status": "dependent",
+      "verified": false,
+      "notes": "Current external inquiry endpoint retained for continuity"
+    },
+    {
+      "id": "notifications",
+      "provider": "SpotHopper",
+      "status": "dependent",
+      "verified": false,
+      "notes": "New provider must send booking/inquiry confirmation and staff alert reliably"
+    },
+    {
+      "id": "production_domain",
+      "provider": "Current registrar and DNS",
+      "status": "dependent",
+      "verified": false,
+      "notes": "Domain transfer and DNS snapshot + redirects unverified"
+    }
+  ],
+  "gates": [
+    {
+      "id": "explicit_launch_approval",
+      "ready": false,
+      "owner": "The Krystal Method",
+      "proof": "Exact build and cutover authorization"
+    },
+    {
+      "id": "booking_export",
+      "ready": false,
+      "owner": "Restaurant and SpotHopper",
+      "proof": "Full future confirmed/cancelled bookings with source IDs and UTC timestamps"
+    },
+    {
+      "id": "guest_and_consent_export",
+      "ready": false,
+      "owner": "Restaurant and SpotHopper",
+      "proof": "Contacts, email opt-in evidence, unsubscribe/suppression statuses"
+    },
+    {
+      "id": "waitlist_table_inventory",
+      "ready": false,
+      "owner": "Restaurant",
+      "proof": "Real tables/sections/capacities, current waitlist and turn-time rules"
+    },
+    {
+      "id": "replacement_reservations_live",
+      "ready": false,
+      "owner": "Restaurant and The Krystal Method",
+      "proof": "Secure owner-controlled booking system, staff test, duplicate prevention"
+    },
+    {
+      "id": "replacement_inquiries_live",
+      "ready": false,
+      "owner": "The Krystal Method",
+      "proof": "Catering/event form test + staff receipt + audit trail"
+    },
+    {
+      "id": "replacement_email_ready",
+      "ready": false,
+      "owner": "Restaurant",
+      "proof": "Consent-aware sender with domain verification and unsubscribe handling"
+    },
+    {
+      "id": "migration_reconciled",
+      "ready": false,
+      "owner": "The Krystal Method",
+      "proof": "Source/target counts, IDs, statuses and reconciliation signed off"
+    },
+    {
+      "id": "dns_and_redirects",
+      "ready": false,
+      "owner": "Domain administrator",
+      "proof": "Nameserver/A/AAAA/CNAME/MX/TXT snapshot, TLS, existing QR paths and real 301s"
+    },
+    {
+      "id": "rollback_tested",
+      "ready": false,
+      "owner": "The Krystal Method",
+      "proof": "Documented restore and verified bookings, orders, mail flow"
+    }
+  ]
+}
